@@ -4,6 +4,8 @@ import { Trash2, ArrowLeft, Mail, User, MessageSquare, Lock, RefreshCw } from "l
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 interface ContactMessage {
   id: string;
   name: string;
@@ -18,6 +20,7 @@ const Messages = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [authToken, setAuthToken] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -26,6 +29,13 @@ const Messages = () => {
     if (stored) {
       setMessages(JSON.parse(stored));
     }
+
+    // Check for existing token
+    const token = localStorage.getItem("admin-token");
+    if (token) {
+      setAuthToken(token);
+      fetchMessagesWithToken(token);
+    }
   }, []);
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -33,7 +43,7 @@ const Messages = () => {
     setIsAuthenticating(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth', {
+      const response = await fetch(`${API_URL}/api/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +53,9 @@ const Messages = () => {
 
       if (response.ok) {
         setIsAuthenticated(true);
-        fetchMessagesFromServer(password);
+        setAuthToken(password);
+        localStorage.setItem("admin-token", password);
+        fetchMessagesFromServer();
         toast({
           title: "Authenticated",
           description: "Access granted to messages.",
@@ -67,14 +79,15 @@ const Messages = () => {
     }
   };
 
-  const fetchMessagesFromServer = async (pass: string) => {
+  const fetchMessagesFromServer = async () => {
+    if (!authToken) return;
+    
     try {
-      const response = await fetch('http://localhost:3001/api/messages', {
-        method: 'POST',
+      const response = await fetch(`${API_URL}/api/messages`, {
+        method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`,
         },
-        body: JSON.stringify({ password: pass }),
       });
 
       if (response.ok) {
@@ -82,6 +95,40 @@ const Messages = () => {
         setMessages(data.messages);
         // Sync with localStorage
         localStorage.setItem("contact-messages", JSON.stringify(data.messages));
+      } else if (response.status === 401) {
+        // Token expired or invalid
+        localStorage.removeItem("admin-token");
+        setAuthToken(null);
+        setIsAuthenticated(false);
+        toast({
+          title: "Session Expired",
+          description: "Please log in again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Failed to fetch messages:', error);
+    }
+  };
+
+  const fetchMessagesWithToken = async (token: string) => {
+    try {
+      const response = await fetch(`${API_URL}/api/messages`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessages(data.messages);
+        localStorage.setItem("contact-messages", JSON.stringify(data.messages));
+        setIsAuthenticated(true);
+      } else {
+        // Token is invalid
+        localStorage.removeItem("admin-token");
+        setAuthToken(null);
       }
     } catch (error) {
       console.error('Failed to fetch messages:', error);
@@ -90,15 +137,27 @@ const Messages = () => {
 
   const deleteMessage = async (id: string) => {
     try {
-      if (isAuthenticated && password) {
+      if (isAuthenticated && authToken) {
         // Try to delete from server
-        await fetch(`http://localhost:3001/api/messages/${id}`, {
+        const response = await fetch(`${API_URL}/api/messages/${id}`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
           },
-          body: JSON.stringify({ password }),
         });
+
+        if (response.status === 401) {
+          // Token expired
+          localStorage.removeItem("admin-token");
+          setAuthToken(null);
+          setIsAuthenticated(false);
+          toast({
+            title: "Session Expired",
+            description: "Please log in again to delete messages.",
+            variant: "destructive",
+          });
+          return;
+        }
       }
     } catch (error) {
       console.error('Failed to delete from server:', error);
@@ -116,16 +175,32 @@ const Messages = () => {
   };
 
   const clearAll = async () => {
+    if (!confirm("Are you sure you want to clear all messages? This action cannot be undone.")) {
+      return;
+    }
+
     try {
-      if (isAuthenticated && password) {
+      if (isAuthenticated && authToken) {
         // Try to clear from server
-        await fetch('http://localhost:3001/api/messages/clear', {
-          method: 'POST',
+        const response = await fetch(`${API_URL}/api/messages`, {
+          method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
           },
-          body: JSON.stringify({ password }),
         });
+
+        if (response.status === 401) {
+          // Token expired
+          localStorage.removeItem("admin-token");
+          setAuthToken(null);
+          setIsAuthenticated(false);
+          toast({
+            title: "Session Expired",
+            description: "Please log in again to clear messages.",
+            variant: "destructive",
+          });
+          return;
+        }
       }
     } catch (error) {
       console.error('Failed to clear from server:', error);
@@ -142,10 +217,21 @@ const Messages = () => {
   };
 
   const refreshMessages = () => {
-    if (password) {
+    if (authToken) {
       setIsLoading(true);
-      fetchMessagesFromServer(password).finally(() => setIsLoading(false));
+      fetchMessagesFromServer().finally(() => setIsLoading(false));
     }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setAuthToken(null);
+    setPassword("");
+    localStorage.removeItem("admin-token");
+    toast({
+      title: "Logged out",
+      description: "You have been logged out.",
+    });
   };
 
   if (!isAuthenticated) {
@@ -211,7 +297,7 @@ const Messages = () => {
   return (
     <>
       <Helmet>
-        <title>Messages | Nishmika</title>
+        <title>Messages | Hemanth</title>
       </Helmet>
 
       <div className="min-h-screen bg-background py-12 px-6">
@@ -224,21 +310,30 @@ const Messages = () => {
               >
                 <ArrowLeft className="w-5 h-5" />
               </Link>
-              <h1 className="text-3xl font-bold">
-                Contact Messages<span className="text-primary">.</span>
-              </h1>
+              <div>
+                <h1 className="text-3xl font-bold">
+                  Contact Messages<span className="text-primary">.</span>
+                </h1>
+                <p className="text-sm text-muted-foreground">
+                  Connected to {API_URL}
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              {password && (
-                <button
-                  onClick={refreshMessages}
-                  disabled={isLoading}
-                  className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors disabled:opacity-50"
-                  title="Refresh messages from server"
-                >
-                  <RefreshCw className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
-                </button>
-              )}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm bg-secondary hover:bg-secondary/80 rounded-lg transition-colors"
+              >
+                Logout
+              </button>
+              <button
+                onClick={refreshMessages}
+                disabled={isLoading}
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors disabled:opacity-50"
+                title="Refresh messages from server"
+              >
+                <RefreshCw className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
+              </button>
               {messages.length > 0 && (
                 <button
                   onClick={clearAll}
@@ -254,6 +349,9 @@ const Messages = () => {
             <div className="text-center py-16 text-muted-foreground">
               <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
               <p>No messages yet</p>
+              <p className="text-sm mt-2">
+                Messages will appear here when users submit the contact form.
+              </p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -289,6 +387,7 @@ const Messages = () => {
                       <button
                         onClick={() => deleteMessage(msg.id)}
                         className="p-2 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
+                        title="Delete message"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
