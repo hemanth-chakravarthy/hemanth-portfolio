@@ -2,15 +2,15 @@
 
 <div align="center">
 
-![Portfolio Preview](<img width="1886" height="877" alt="image" src="https://github.com/user-attachments/assets/a4b1b469-0aec-4dc7-b829-3e2aa5c79c0e" />)
+![Portfolio Preview](https://github.com/user-attachments/assets/a4b1b469-0aec-4dc7-b829-3e2aa5c79c0e)
 
-[![Live Demo]]((https://hemanth-chakravarthy.netlify.app/))
-[![GitHub]]((https://github.com/hemanth-chakravarthy/hemanth-portfolio))
+[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://hemanth-chakravarthy.netlify.app/)
+[![GitHub](https://img.shields.io/badge/github-repo-blue?style=for-the-badge&logo=github)](https://github.com/hemanth-chakravarthy/hemanth-portfolio)
 [![License](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)](LICENSE)
 
 A modern, high-performance portfolio website built with React, TypeScript, and Tailwind CSS. Features interactive animations, smooth scrolling, and a custom contact form with email notifications.
 
-[View Live Demo]((https://hemanth-chakravarthy.netlify.app/)) 
+**[View Live Demo](https://hemanth-chakravarthy.netlify.app/) · [Report Bug](https://github.com/hemanth-chakravarthy/hemanth-portfolio/issues) · [Request Feature](https://github.com/hemanth-chakravarthy/hemanth-portfolio/issues)**
 
 </div>
 
@@ -90,7 +90,6 @@ Full suite of accessible, unstyled components:
 
 ---
 
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -102,8 +101,8 @@ Full suite of accessible, unstyled components:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/hemanth-chakravarthy/hemanth-portfolio
-   cd portfolio
+   git clone https://github.com/hemanth-chakravarthy/hemanth-portfolio.git
+   cd hemanth-portfolio
    ```
 
 2. **Install Frontend Dependencies**
@@ -275,50 +274,16 @@ bun run preview
 
 ---
 
-
-## 👨‍💻 About Me
-
-I am **Hemanth Chakravarthy**, a passionate full-stack software engineer who loves building beautiful, performant web applications that solve real-world problems.
-
-### 💼 Skills & Technologies
-
-**Frontend Development**
-- React, TypeScript, Next.js
-- Tailwind CSS, styled-components, CSS Modules
-- Framer Motion, GSAP
-- React Query, Redux, Zustand
-
-**Backend Development**
-- Node.js, Express.js, NestJS
-- RESTful APIs, GraphQL
-- WebSockets, Socket.IO
-- Microservices architecture
-
-**Database & Storage**
-- MongoDB, PostgreSQL, MySQL
-- Redis, Firebase
-- Prisma ORM, TypeORM
-
-**DevOps & Tools**
-- Git, GitHub, GitLab
-- Docker, Kubernetes
-- CI/CD (GitHub Actions, Jenkins)
-- AWS, Vercel, Netlify
-
----
-
 ## 📬 Contact
 
 <div align="center">
 
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/YOUR_USERNAME)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/your-profile)
-[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://your-portfolio.netlify.app)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:khchakri@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hemanth-chakravarthy)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hemanth-chakravarthy-kancharla-a27b87357)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://hemanth-chakravarthy.netlify.app/)
 
 </div>
-
-
 
 ---
 
@@ -332,17 +297,18 @@ I am **Hemanth Chakravarthy**, a passionate full-stack software engineer who lov
 
 ---
 
-
 ## 📝 License
 
 This project is open source and available under the [MIT License](LICENSE).
+
 ---
+
+<div align="center">
+
 
 ⭐ **Star this repo if you found it helpful!**
 
-
-[![GitHub stars](https://img.shields.io/github/stars/YOUR_USERNAME/portfolio?style=social)]([https://github.com/YOUR_USERNAME/portfolio](https://github.com/hemanth-chakravarthy/hemanth-portfolio))
-[![GitHub forks](https://img.shields.io/github/forks/YOUR_USERNAME/portfolio?style=social)](https://github.com/YOUR_USERNAME/portfolio/fork)
+[![GitHub stars](https://img.shields.io/github/stars/hemanth-chakravarthy/hemanth-portfolio?style=social)](https://github.com/hemanth-chakravarthy/hemanth-portfolio)
+[![GitHub forks](https://img.shields.io/github/forks/hemanth-chakravarthy/hemanth-portfolio?style=social)](https://github.com/hemanth-chakravarthy/hemanth-portfolio/fork)
 
 </div>
-
