@@ -8,14 +8,13 @@ import Achievements from "../components/Achievements";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import CustomCursor from "../components/CustomCursor";
-import InteractiveBackground from "../components/InteractiveBackground";
 import ScrollSection from "../components/ScrollSection";
 
 const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Hemanth's Portfolio</title>
+        <title>Hemanth Chakravarthy | Portfolio</title>
         <meta
           name="description"
           content="Portfolio of Hemanth Chakravarthy - Full-stack developer specializing in React, Next.js, and modern web technologies."
