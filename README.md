@@ -2,11 +2,10 @@
 
 <div align="center">
 
-![Portfolio Preview](<img width="1886" height="877" alt="image" src="https://github.com/user-attachments/assets/9b0e6e4e-4faf-4ef8-8416-6dec5e919b72" />
-)
+![Portfolio Preview](<img width="1886" height="877" alt="image" src="https://github.com/user-attachments/assets/a4b1b469-0aec-4dc7-b829-3e2aa5c79c0e" />)
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)]((https://hemanth-chakravarthy.netlify.app/))
-[![GitHub](https://img.shields.io/badge/github-repo-blue?style=for-the-badge&logo=github)]((https://github.com/hemanth-chakravarthy/hemanth-portfolio))
+[![Live Demo]]((https://hemanth-chakravarthy.netlify.app/))
+[![GitHub]]((https://github.com/hemanth-chakravarthy/hemanth-portfolio))
 [![License](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)](LICENSE)
 
 A modern, high-performance portfolio website built with React, TypeScript, and Tailwind CSS. Features interactive animations, smooth scrolling, and a custom contact form with email notifications.
@@ -346,3 +345,4 @@ This project is open source and available under the [MIT License](LICENSE).
 [![GitHub forks](https://img.shields.io/github/forks/YOUR_USERNAME/portfolio?style=social)](https://github.com/YOUR_USERNAME/portfolio/fork)
 
 </div>
+
