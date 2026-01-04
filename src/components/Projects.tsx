@@ -1,5 +1,10 @@
 import { ExternalLink, Github } from "lucide-react";
 
+// Import images at the top
+import echoVoyageImage from "@/assets/EchoVoyage.png";
+import photoSphereImage from "@/assets/PhotoSphere.png";
+import orderExecutionImage from "@/assets/OrderExecution.png";
+
 const Projects = () => {
   const projects = [
     {
@@ -10,17 +15,17 @@ const Projects = () => {
       tech: ["React", "Redux", "Node.js", "MongoDB"],
       liveUrl: "https://echo-voyage.vercel.app/",
       githubUrl: "https://github.com/hemanth-chakravarthy/EchoVoyages",
-      image: "src/assets/EchoVoyage.png",
+      image: echoVoyageImage, // Use imported image
     },
     {
       number: "2",
       title: "PhotoSphere",
       description:
         "PhotoSphere is a personal photography portfolio platform that allows photographers to showcase their work. Users can explore immersive photo spheres and connect with photographers for collaborations.",
-      tech: [ "Typescript", "React", "Tailwind CSS", "PostgreSQL"],
+      tech: ["Typescript", "React", "Tailwind CSS", "PostgreSQL"],
       liveUrl: "https://photo-sphere-online.lovable.app/",
       githubUrl: "https://github.com/hemanth-chakravarthy/photo-shpere",
-      image: "src/assets/PhotoSphere.png",
+      image: photoSphereImage, // Use imported image
     },
     {
       number: "3",
@@ -28,9 +33,9 @@ const Projects = () => {
       description:
         "A high-performance order execution engine for DEX trading with intelligent routing, real-time WebSocket updates, and concurrent order processing.",
       tech: ["Node.js", "TypeScript", "Fastify", "WebSockets", "BullMQ", "Redis"],
-        liveUrl: "https://order-execution-engine-production-2c02.up.railway.app/",
+      liveUrl: "https://order-execution-engine-production-2c02.up.railway.app/",
       githubUrl: "https://github.com/hemanth-chakravarthy/Order-execution-engine",
-      image: "src/assets/Order Execution.png",
+      image: orderExecutionImage, // Use imported image
     },
   ];
 
@@ -54,7 +59,7 @@ const Projects = () => {
                 <div className="project-card p-4 bg-secondary/50">
                   <div className="relative rounded-xl overflow-hidden aspect-video">
                     <img
-                      src={project.image}
+                      src={project.image} // Now using imported image
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     />

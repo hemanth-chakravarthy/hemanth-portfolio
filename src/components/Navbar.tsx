@@ -2,6 +2,10 @@ import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
+// Import images at the top
+import logoWhite from "@/assets/hcklogowhite.png";
+import logoBlack from "@/assets/hcklogoblack.png";
+
 const sections = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
@@ -77,9 +81,7 @@ const Navbar = () => {
   }, []);
 
   // Determine which logo to use based on theme
-  const logoPath = isDarkMode 
-    ? "src/assets/HCK White Logo.png" 
-    : "src/assets/HCK Black Logo.png";
+  const logo = isDarkMode ? logoWhite : logoBlack;
 
   return (
     <header
@@ -94,10 +96,9 @@ const Navbar = () => {
           className="font-display font-bold text-2xl text-foreground shrink-0"
         >
           <img 
-            src={logoPath} 
+            src={logo} 
             alt="HCK Logo" 
             className="h-6 w-auto sm:h-8"
-            key={logoPath} // Force re-render when logo changes
           />
         </a>
 

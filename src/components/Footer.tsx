@@ -1,6 +1,10 @@
 import { Github, Linkedin, Mail, Instagram } from "lucide-react";
 import { useEffect, useState } from "react";
 
+// Import images at the top
+import logoWhite from "@/assets/hcklogowhite.png";
+import logoBlack from "@/assets/hcklogoblack.png";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -41,52 +45,49 @@ const Footer = () => {
   ];
 
   // Determine which logo to use based on theme
-  const logoPath = isDarkMode 
-    ? "src/assets/HCK White Logo.png" 
-    : "src/assets/HCK Black Logo.png";
+  const logo = isDarkMode ? logoWhite : logoBlack;
 
   return (
     <footer className="py-8 border-t border-border relative">
-  {/* Added px-8 and md:px-12 for more side spacing */}
-  <div className="container mx-auto px-18 md:px-20">
-    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-      {/* Logo */}
-      <a
-        href="#home"
-        className="font-display font-bold text-2xl text-foreground shrink-0"
-      >
-        <img 
-          src={logoPath}
-          alt="HCK Logo" 
-          className="h-6 w-auto sm:h-8"
-          key={logoPath} 
-        />
-      </a>
-
-      {/* Social Links - Mobile */}
-      <div className="flex md:hidden gap-4">
-        {socialLinks.map((social, index) => (
+      {/* Added px-8 and md:px-12 for more side spacing */}
+      <div className="container mx-auto px-18 md:px-20">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Logo */}
           <a
-            key={index}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-link"
-            aria-label={social.label}
+            href="#home"
+            className="font-display font-bold text-2xl text-foreground shrink-0"
           >
-            <social.icon className="w-4 h-4" />
+            <img 
+              src={logo} // Use imported image
+              alt="HCK Logo" 
+              className="h-6 w-auto sm:h-8"
+            />
           </a>
-        ))}
-      </div>
 
-      {/* Copyright */}
-      {/* Added md:text-right to push the copyright further to the right edge */}
-      <p className="text-sm text-muted-foreground md:text-right">
-        © {currentYear} Hemanth Chakravarthy Kancharla. All rights reserved.
-      </p>
-    </div>
-  </div>
-</footer>
+          {/* Social Links - Mobile */}
+          <div className="flex md:hidden gap-4">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label={social.label}
+              >
+                <social.icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
+
+          {/* Copyright */}
+          {/* Added md:text-right to push the copyright further to the right edge */}
+          <p className="text-sm text-muted-foreground md:text-right">
+            © {currentYear} Hemanth Chakravarthy Kancharla. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 };
 
