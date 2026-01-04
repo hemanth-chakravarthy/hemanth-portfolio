@@ -10,8 +10,6 @@
 
 A modern, high-performance portfolio website built with React, TypeScript, and Tailwind CSS. Features interactive animations, smooth scrolling, and a custom contact form with email notifications.
 
-**[View Live Demo](https://hemanth-chakravarthy.netlify.app/) · [Report Bug](https://github.com/hemanth-chakravarthy/hemanth-portfolio/issues) · [Request Feature](https://github.com/hemanth-chakravarthy/hemanth-portfolio/issues)**
-
 </div>
 
 ---
@@ -312,5 +310,6 @@ This project is open source and available under the [MIT License](LICENSE).
 [![GitHub forks](https://img.shields.io/github/forks/hemanth-chakravarthy/hemanth-portfolio?style=social)](https://github.com/hemanth-chakravarthy/hemanth-portfolio/fork)
 
 </div>
+
 
 
