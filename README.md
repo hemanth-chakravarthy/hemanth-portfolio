@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Portfolio Preview]((https://github.com/user-attachments/assets/7d90fbc0-851e-4c25-bbe3-525496cb187e))
+[![Portfolio Preview]((https://github.com/user-attachments/assets/7d90fbc0-851e-4c25-bbe3-525496cb187e))](https://github.com/user-attachments/assets/7d90fbc0-851e-4c25-bbe3-525496cb187e)
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://hemanth-chakravarthy.netlify.app/)
 [![GitHub](https://img.shields.io/badge/github-repo-blue?style=for-the-badge&logo=github)](https://github.com/hemanth-chakravarthy/hemanth-portfolio)
