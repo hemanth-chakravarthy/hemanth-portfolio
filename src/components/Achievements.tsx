@@ -14,6 +14,12 @@ const Achievements = () => {
       description: "Completed Meta's rigorous Full Stack Developer certification, mastering front-end and back-end technologies, database management, and deployment strategies.",
       year: "2025",
     },
+    {
+      icon: Star,
+      title: "Open Source Contributor",
+      description: "Contributor to 'Developer Portfolios', a curated collection of high-quality portfolios for developer inspiration.",
+      year: "2026",
+    },
   ];
 
   return (
