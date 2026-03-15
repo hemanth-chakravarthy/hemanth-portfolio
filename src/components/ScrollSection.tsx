@@ -1,5 +1,5 @@
 import { useRef, ReactNode, useEffect, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 interface ScrollSectionProps {
   children: ReactNode;
@@ -29,16 +29,10 @@ const ScrollSection = ({ children, id, className = "" }: ScrollSectionProps) => 
     offset: ["start end", "end start"],
   });
 
-  // Transform values for parallax effect
-  const rawY = useTransform(scrollYProgress, [0, 0.5, 1], [60, 0, -60]);
-  const rawOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const rawScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
-
-  // Smooth spring animations
-  const springConfig = { damping: 30, stiffness: 100, mass: 0.5 };
-  const y = useSpring(rawY, springConfig);
-  const opacity = useSpring(rawOpacity, springConfig);
-  const scale = useSpring(rawScale, springConfig);
+  // Transform values for parallax — useTransform is already frame-synced and smooth
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [60, 0, -60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
 
   // Disable animations on mobile or reduced motion
   if (isMobile || prefersReducedMotion) {

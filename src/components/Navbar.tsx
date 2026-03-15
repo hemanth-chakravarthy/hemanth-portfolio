@@ -53,31 +53,38 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    let rafId: number;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 10);
 
-      const scrollPosition = window.scrollY + 120;
+        const scrollPosition = window.scrollY + 120;
 
-      for (const section of sections) {
-        const el = document.querySelector(section.href) as HTMLElement;
-        if (!el) continue;
+        for (const section of sections) {
+          const el = document.querySelector(section.href) as HTMLElement;
+          if (!el) continue;
 
-        const { offsetTop, offsetHeight } = el;
-        if (
-          scrollPosition >= offsetTop &&
-          scrollPosition < offsetTop + offsetHeight
-        ) {
-          setActive(section.name);
+          const { offsetTop, offsetHeight } = el;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActive(section.name);
+          }
         }
-      }
 
-      if (window.scrollY < 100) {
-        setActive("Home");
-      }
+        if (window.scrollY < 100) {
+          setActive("Home");
+        }
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // Determine which logo to use based on theme

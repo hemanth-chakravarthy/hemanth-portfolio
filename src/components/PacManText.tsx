@@ -106,7 +106,7 @@ const PacMan = () => {
     <motion.div
       className="relative w-10 h-10 md:w-12 md:h-12"
       animate={{ x: [0, 2, 0] }}
-      transition={{ duration: 0.18, repeat: Infinity }}
+      transition={{ duration: 1, repeat: Infinity }}
     >
       <svg viewBox="0 0 100 100" className="w-full h-full">
         <motion.path
@@ -121,7 +121,7 @@ const PacMan = () => {
             ],
           }}
           transition={{
-            duration: 0.2,
+            duration: 0.4,
             repeat: Infinity,
             ease: "easeInOut",
           }}

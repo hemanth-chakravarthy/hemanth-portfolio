@@ -70,7 +70,7 @@ const floatingIcons = [
 const Hero = () => {
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
+
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Check theme on mount and when it changes
@@ -101,26 +101,13 @@ const Hero = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Track mouse position for parallax
+  // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (prefersReducedMotion || isMobile) return;
-      setMousePosition({
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, [prefersReducedMotion, isMobile]);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/hemanth-chakravarthy", label: "GitHub" },

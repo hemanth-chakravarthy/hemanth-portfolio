@@ -59,8 +59,9 @@ const Projects = () => {
                 <div className="project-card p-4 bg-secondary/50">
                   <div className="relative rounded-xl overflow-hidden aspect-video">
                     <img
-                      src={project.image} // Now using imported image
+                      src={project.image}
                       alt={project.title}
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     />
                   </div>

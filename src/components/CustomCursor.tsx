@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  // Use a motion value for visibility to avoid React re-renders on mousemove
+  const cursorOpacity = useMotionValue(0);
 
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
@@ -39,11 +41,11 @@ const CustomCursor = () => {
     const handleMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
-      setIsVisible(true);
+      cursorOpacity.set(1); // No React re-render — just updates motion value
     };
 
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
+    const handleMouseLeave = () => cursorOpacity.set(0);
+    const handleMouseEnter = () => cursorOpacity.set(1);
 
     if (!isMobile && !prefersReducedMotion) {
       document.addEventListener("mousemove", handleMouseMove);
@@ -56,7 +58,7 @@ const CustomCursor = () => {
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [cursorX, cursorY, isMobile, prefersReducedMotion]);
+  }, [cursorX, cursorY, cursorOpacity, isMobile, prefersReducedMotion]);
 
   // Don't render on mobile or if user prefers reduced motion
   if (isMobile || prefersReducedMotion) return null;
@@ -77,9 +79,8 @@ const CustomCursor = () => {
           y: cursorYSpring,
           translateX: "-50%",
           translateY: "-50%",
+          opacity: cursorOpacity,
         }}
-        animate={{ opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.15 }}
       >
         <span className="text-primary font-mono text-sm font-bold select-none">
           {"</>"}
@@ -94,9 +95,8 @@ const CustomCursor = () => {
           y: ringYSpring,
           translateX: "-50%",
           translateY: "-50%",
+          opacity: cursorOpacity,
         }}
-        animate={{ opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.15 }}
       >
         <div className="w-10 h-10 rounded-full border-2 border-primary/40" />
       </motion.div>

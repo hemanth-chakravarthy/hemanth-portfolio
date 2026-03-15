@@ -118,10 +118,7 @@
     font-family: 'Space Grotesk', sans-serif;
   }
 
-  /* Smooth theme transitions */
-  *, *::before, *::after {
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  }
+  /* Smooth theme transitions — only on interactive elements, NOT wildcard */
 }
 
 @layer components {
