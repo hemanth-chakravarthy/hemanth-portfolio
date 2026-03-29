@@ -6,7 +6,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://hemanth-chakravarthy.netlify.app',
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 app.use(express.json());
 
 // In-memory storage for messages
@@ -71,31 +80,132 @@ app.post('/api/contact', async (req: Request, res: Response) => {
         from: EMAIL_USER,
         to: EMAIL_USER,
         replyTo: email,
-        subject: `New Contact Form Message from ${name}`,
+        subject: `✦ New message from ${name} — Portfolio Contact`,
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #333; border-bottom: 2px solid #4F46E5; padding-bottom: 10px;">
-              New Contact Form Submission
-            </h2>
-            <div style="margin: 20px 0;">
-              <p style="margin: 10px 0;">
-                <strong style="color: #666;">Name:</strong>
-                <span style="color: #333;">${name}</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body style="margin: 0; padding: 0; background-color: #0d1117; font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: #0d1117;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width: 600px; width: 100%;">
+
+          <!-- Header with gradient -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #21B6A8 0%, #2CC4B6 50%, #38D9CB 100%); border-radius: 16px 16px 0 0; padding: 32px 40px; text-align: center;">
+              <h1 style="margin: 0; font-family: 'Space Grotesk', 'Segoe UI', sans-serif; font-size: 24px; font-weight: 700; color: #0d1117; letter-spacing: -0.5px;">
+                New Contact Message<span style="color: rgba(13,17,23,0.5)">.</span>
+              </h1>
+              <p style="margin: 8px 0 0; font-size: 14px; color: rgba(13,17,23,0.7); font-weight: 400;">
+                Someone reached out through your portfolio
               </p>
-              <p style="margin: 10px 0;">
-                <strong style="color: #666;">Email:</strong>
-                <a href="mailto:${email}" style="color: #4F46E5;">${email}</a>
+            </td>
+          </tr>
+
+          <!-- Main content card -->
+          <tr>
+            <td style="background-color: #161b22; padding: 0; border-left: 1px solid rgba(255,255,255,0.06); border-right: 1px solid rgba(255,255,255,0.06);">
+
+              <!-- Sender info section -->
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="padding: 32px 40px 24px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                      <!-- Name -->
+                      <tr>
+                        <td style="padding-bottom: 16px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="width: 36px; height: 36px; background: rgba(33,182,168,0.12); border-radius: 10px; text-align: center; vertical-align: middle;">
+                                <span style="font-size: 16px; line-height: 36px;">👤</span>
+                              </td>
+                              <td style="padding-left: 14px;">
+                                <p style="margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: #6b7280; font-weight: 600;">From</p>
+                                <p style="margin: 2px 0 0; font-size: 17px; color: #f0f6fc; font-weight: 600; font-family: 'Space Grotesk', sans-serif;">${name}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Email -->
+                      <tr>
+                        <td>
+                          <table role="presentation" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="width: 36px; height: 36px; background: rgba(33,182,168,0.12); border-radius: 10px; text-align: center; vertical-align: middle;">
+                                <span style="font-size: 16px; line-height: 36px;">✉️</span>
+                              </td>
+                              <td style="padding-left: 14px;">
+                                <p style="margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: #6b7280; font-weight: 600;">Email</p>
+                                <a href="mailto:${email}" style="margin: 2px 0 0; font-size: 15px; color: #21B6A8; text-decoration: none; font-weight: 500; display: block;">${email}</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <tr>
+                <td style="padding: 0 40px;">
+                  <div style="height: 1px; background: linear-gradient(90deg, transparent, rgba(33,182,168,0.3), transparent);"></div>
+                </td>
+              </tr>
+
+              <!-- Message section -->
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="padding: 24px 40px 32px;">
+                    <p style="margin: 0 0 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: #6b7280; font-weight: 600;">
+                      💬 Message
+                    </p>
+                    <div style="background-color: #0d1117; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px;">
+                      <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #c9d1d9; white-space: pre-wrap;">${message}</p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Reply button -->
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="padding: 0 40px 32px; text-align: center;">
+                    <a href="mailto:${email}" style="display: inline-block; background: linear-gradient(135deg, #21B6A8 0%, #2CC4B6 100%); color: #0d1117; font-size: 14px; font-weight: 600; padding: 12px 32px; border-radius: 50px; text-decoration: none; font-family: 'Outfit', sans-serif; letter-spacing: 0.3px;">
+                      Reply to ${name} →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #0d1117; border: 1px solid rgba(255,255,255,0.06); border-top: none; border-radius: 0 0 16px 16px; padding: 24px 40px; text-align: center;">
+              <p style="margin: 0 0 4px; font-size: 12px; color: #484f58;">
+                Received on ${new Date(newMessage.timestamp).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} at ${new Date(newMessage.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
               </p>
-            </div>
-            <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
-              <p style="margin: 0 0 10px 0;"><strong style="color: #666;">Message:</strong></p>
-              <p style="color: #333; white-space: pre-wrap; margin: 0;">${message}</p>
-            </div>
-            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
-            <p style="color: #999; font-size: 12px;">
-              <em>Sent at: ${new Date(newMessage.timestamp).toLocaleString()}</em>
-            </p>
-          </div>
+              <p style="margin: 0; font-size: 12px; color: #484f58;">
+                Sent from <a href="https://hemanth-chakravarthy.netlify.app" style="color: #21B6A8; text-decoration: none;">hemanth-chakravarthy.netlify.app</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
         `,
       };
 
