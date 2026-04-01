@@ -13,9 +13,9 @@ const Projects = () => {
       description:
         "EchoVoyage is a travel website that offers personalized trip planning and booking services. It features interactive maps, destination guides, and user reviews to help travelers create unforgettable experiences.",
       tech: ["React", "Redux", "Node.js", "MongoDB"],
-      liveUrl: "https://echo-voyage.vercel.app/",
+      liveUrl: "https://echovoyages-v2.onrender.com",
       githubUrl: "https://github.com/hemanth-chakravarthy/EchoVoyages",
-      image: echoVoyageImage, // Use imported image
+      image: echoVoyageImage,
     },
     {
       number: "2",
