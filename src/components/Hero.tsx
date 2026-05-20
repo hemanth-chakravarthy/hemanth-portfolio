@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import PacManText from "./PacManText";
 
 // Import images directly
-import profileImageDark from "@/assets/profile.png"; // or your actual path
-import profileImageLight from "@/assets/profilewhite.png"; // or your actual path
+import profileImageDark from "@/assets/profile.webp";
+import profileImageLight from "@/assets/profilewhite.webp";
 
 // Floating tech icons configuration with x/y positioning
 const floatingIcons = [

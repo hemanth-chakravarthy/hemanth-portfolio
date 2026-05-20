@@ -2,8 +2,8 @@ import { Github, Linkedin, Mail, Instagram } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Import images at the top
-import logoWhite from "@/assets/hcklogowhite.png";
-import logoBlack from "@/assets/hcklogoblack.png";
+import logoWhite from "@/assets/hcklogowhite.webp";
+import logoBlack from "@/assets/hcklogoblack.webp";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

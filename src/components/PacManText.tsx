@@ -100,34 +100,62 @@ const PacManText = () => {
   );
 };
 
-// Pac-Man component with mouth animation - black color
+// Pac-Man component with 3D spherical look and mouth animation
 const PacMan = () => {
   return (
     <motion.div
-      className="relative w-10 h-10 md:w-12 md:h-12"
-      animate={{ x: [0, 2, 0] }}
-      transition={{ duration: 1, repeat: Infinity }}
+      className="relative w-12 h-12 md:w-16 md:h-16"
+      animate={{ 
+        y: [0, -4, 0],
+        rotate: [0, -5, 0, 5, 0]
+      }}
+      transition={{ 
+        y: { duration: 0.4, repeat: Infinity, ease: "easeInOut" },
+        rotate: { duration: 2, repeat: Infinity, ease: "linear" }
+      }}
     >
-      <svg viewBox="0 0 100 100" className="w-full h-full">
+      {/* 3D Shadow beneath */}
+      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-2 bg-black/20 blur-md rounded-[100%] scale-x-150" />
+
+      <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-2xl">
+        <defs>
+          <radialGradient id="pacmanGradient" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stopColor="#FFF200" />
+            <stop offset="70%" stopColor="#FFD700" />
+            <stop offset="100%" stopColor="#B8860B" />
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        {/* Pac-Man Body with 3D Gradient */}
         <motion.path
           d="M50,50 L95,25 A50,50 0 1,0 95,75 Z"
-          fill="currentColor"
-          className="text-foreground"
+          fill="url(#pacmanGradient)"
+          stroke="#B8860B"
+          strokeWidth="0.5"
           animate={{
             d: [
-              "M50,50 L95,25 A50,50 0 1,0 95,75 Z", // Mouth open
-              "M50,50 L95,45 A50,50 0 1,0 95,55 Z", // Mouth closed
-              "M50,50 L95,25 A50,50 0 1,0 95,75 Z", // Mouth open
+              "M50,50 L95,15 A50,50 0 1,0 95,85 Z", // Wide open
+              "M50,50 L95,48 A50,50 0 1,0 95,52 Z", // Almost closed
+              "M50,50 L95,15 A50,50 0 1,0 95,85 Z", // Wide open
             ],
           }}
           transition={{
-            duration: 0.4,
+            duration: 0.3,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
-        {/* Eye */}
-        <circle cx="55" cy="30" r="6" fill="hsl(var(--background))" />
+
+        {/* Specular Highlight for 3D effect */}
+        <circle cx="35" cy="35" r="8" fill="white" fillOpacity="0.4" filter="url(#glow)" />
+        <circle cx="32" cy="32" r="3" fill="white" fillOpacity="0.6" />
+
+        {/* Eye - more classic style */}
+        <circle cx="50" cy="25" r="4" fill="black" />
       </svg>
     </motion.div>
   );

@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 // Import images at the top
-import logoWhite from "@/assets/hcklogowhite.png";
-import logoBlack from "@/assets/hcklogoblack.png";
+import logoWhite from "@/assets/hcklogowhite.webp";
+import logoBlack from "@/assets/hcklogoblack.webp";
 
 const sections = [
   { name: "Home", href: "#home" },
