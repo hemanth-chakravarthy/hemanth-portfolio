@@ -1,13 +1,14 @@
 import React from "react";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Image as ImageIcon, Music, AudioLines } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  SiReact, SiRedux, SiNodedotjs, SiMongodb, 
-  SiTypescript, SiTailwindcss, SiPostgresql, 
+import {
+  SiReact, SiRedux, SiNodedotjs, SiMongodb,
+  SiTypescript, SiTailwindcss, SiPostgresql,
   SiFastify, SiSocketdotio, SiRedis, SiFramer,
   SiNextdotjs, SiSupabase, SiVercel, SiPython,
   SiDocker, SiTensorflow, SiKeras, SiObsidian,
-  SiMeta, SiOpenai, SiRender
+  SiMeta, SiOpenai, SiRender, SiJavascript,
+  SiHtml5, SiCss3
 } from "react-icons/si";
 
 // Import images at the top
@@ -19,6 +20,7 @@ import smartBookmarkImage from "@/assets/SmartBookmark.webp";
 import photoChatbotImage from "@/assets/PhotoChatbot.webp";
 import voyageMateImage from "@/assets/VoyageMate.webp";
 import airQualityImage from "@/assets/AirQuality.webp";
+import pygano from "@/assets/Pygano.webp";
 
 const techIconMap: { [key: string]: { icon: any; color: string } } = {
   "React": { icon: SiReact, color: "#61DAFB" },
@@ -47,6 +49,11 @@ const techIconMap: { [key: string]: { icon: any; color: string } } = {
   "Llama 3.3": { icon: SiMeta, color: "#0668E1" },
   "LangGraph": { icon: SiPython, color: "#3776AB" },
   "Onrender": { icon: SiRender, color: "#46E3B7" },
+  "JavaScript": { icon: SiJavascript, color: "#F7DF1E" },
+  "HTML/CSS": { icon: SiHtml5, color: "#E34F26" },
+  "Pillow (PIL)": { icon: ImageIcon, color: "#3776AB" },
+  "soundfile": { icon: Music, color: "#FF4081" },
+  "Web Audio API": { icon: AudioLines, color: "#00E676" },
 };
 
 const ProjectCard = ({ project, index }: { project: any; index: number }) => {
@@ -65,33 +72,33 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
       {/* Visual Area */}
       <div className="relative h-64 overflow-hidden bg-muted flex items-center justify-center p-0 dark:bg-black/40">
         {/* Project Image Background */}
-        <img 
-          src={project.image} 
-          alt="" 
+        <img
+          src={project.image}
+          alt=""
           className="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-100 group-hover:opacity-10 group-hover:scale-110"
         />
-        
+
         {/* Animated Background Glow */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-        
+
         {/* Center Line Glow (matching reference) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-32 bg-primary/40 blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
         {/* Tech Stack Scrolling Container */}
-        <div 
+        <div
           className={`relative w-full overflow-hidden flex items-center justify-center py-4 mask-fade-edges transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
         >
-          <motion.div 
+          <motion.div
             className="flex gap-6 items-center"
-            animate={isHovered ? { 
-              x: [0, -(project.tech.length * 88)], 
+            animate={isHovered ? {
+              x: [0, -(project.tech.length * 88)],
             } : { x: 0 }}
-            transition={{ 
+            transition={{
               duration: isHovered ? project.tech.length * 2 : 0.5,
               repeat: isHovered ? Infinity : 0,
               ease: "linear",
             }}
-            style={{ 
+            style={{
               display: "flex",
               width: "max-content",
             }}
@@ -101,19 +108,19 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
               const techData = techIconMap[techName] || { icon: SiReact, color: "#61DAFB" };
               const Icon = techData.icon;
               return (
-                <div 
+                <div
                   key={i}
                   className="flex flex-col items-center gap-2 group/icon"
                 >
-                  <div 
+                  <div
                     className="w-16 h-16 rounded-full bg-background/80 backdrop-blur-md flex items-center justify-center border border-border/50 shadow-sm group-hover/icon:scale-110 transition-all duration-300 dark:bg-secondary/80"
-                    style={{ 
+                    style={{
                       borderColor: isHovered ? `${techData.color}44` : undefined,
-                      boxShadow: isHovered ? `0 0 20px ${techData.color}22` : undefined 
+                      boxShadow: isHovered ? `0 0 20px ${techData.color}22` : undefined
                     }}
                   >
-                    <Icon 
-                      className="w-8 h-8 transition-colors duration-300" 
+                    <Icon
+                      className="w-8 h-8 transition-colors duration-300"
                       style={{ color: techData.color }}
                     />
                   </div>
@@ -139,7 +146,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
         <h3 className="text-2xl font-display font-bold mb-3 group-hover:text-primary transition-colors duration-300">
           {project.title}
         </h3>
-        
+
         <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-1">
           {project.description}
         </p>
@@ -202,14 +209,13 @@ const Projects = () => {
       githubUrl: "https://github.com/hemanth-chakravarthy/photo-shpere",
       image: photoSphereImage,
     },
-    
+
     {
       number: "4",
       title: "Air Quality Monitor",
       description:
         "Comprehensive web application for real-time air quality monitoring and prediction using machine learning (Keras/TensorFlow) and FastAPI.",
       tech: ["React", "TypeScript", "FastAPI", "Python", "TensorFlow", "Docker", "Redis"],
-      liveUrl: "#",
       githubUrl: "https://github.com/hemanth-chakravarthy/Air-Quality-Monitoring",
       image: airQualityImage,
     },
@@ -219,7 +225,7 @@ const Projects = () => {
       description:
         "Agentic AI travel planner that generates personalized itineraries and real-time insights using a ReAct-based LangGraph workflow and FastAPI.",
       tech: ["LangGraph", "FastAPI", "Python", "React", "Onrender"],
-      liveUrl: "https://voyagemate-frontend.onrender.com/",
+      liveUrl: "https://huggingface.co/spaces/imperialx04/VoyagemateAI",
       githubUrl: "https://github.com/hemanth-chakravarthy/voyagemate-ai",
       image: voyageMateImage,
     },
@@ -245,14 +251,24 @@ const Projects = () => {
     },
     {
       number: "8",
-      title: "Live AI Meeting Copilot",
+      title: "TwinMind — Live AI Meeting Copilot",
       description:
-        "A high-performance, real-time AI assistant built for live meeting augmentation. Handles continuous audio capture, multi-stage reasoning, and secure data management.",
-      tech: ["Next.js", "Tailwind CSS", "Groq API", "Vercel"],
+        "A high-performance real-time AI meeting assistant that performs live transcription, contextual reasoning, and intelligent meeting augmentation with secure BYOK architecture.",
+      tech: ["Next.js", "Tailwind CSS", "TypeScript", "Groq API", "Zustand", "Vercel"],
       liveUrl: "https://live-ai-meeting-copilot.vercel.app",
       githubUrl: "https://github.com/hemanth-chakravarthy/live-ai-meeting-copilot",
       image: meetingCopilotImage,
     },
+    {
+      number: "9",
+      title: "Pygano — Ensemble Steganography Tool",
+      description:
+        "A modular steganography suite for securely hiding data inside images, audio, and text using LSB encoding, featuring a Python CLI and a fully client-side web application.",
+      tech: ["Python", "JavaScript", "Pillow (PIL)", "soundfile", "Web Audio", "HTML/CSS", "Vercel",],
+      liveUrl: "https://pygano-steganography-tool.vercel.app",
+      githubUrl: "https://github.com/hemanth-chakravarthy/pygano-steganography-tool",
+      image: pygano,
+    }
   ];
 
   return (
