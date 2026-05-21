@@ -20,7 +20,7 @@ import smartBookmarkImage from "@/assets/SmartBookmark.webp";
 import photoChatbotImage from "@/assets/PhotoChatbot.webp";
 import voyageMateImage from "@/assets/VoyageMate.webp";
 import airQualityImage from "@/assets/AirQuality.webp";
-import pygano from "@/assets/Pygano.webp";
+import pygano from "@/assets/pygano.webp";
 
 const techIconMap: { [key: string]: { icon: any; color: string } } = {
   "React": { icon: SiReact, color: "#61DAFB" },
