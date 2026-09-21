@@ -17,6 +17,7 @@ export default {
       fontFamily: {
         sans: ['Outfit', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
+        caveat: ['Caveat', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",

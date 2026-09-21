@@ -1,287 +1,626 @@
-import React from "react";
-import { ExternalLink, Github, Image as ImageIcon, Music, AudioLines } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  SiReact, SiRedux, SiNodedotjs, SiMongodb,
-  SiTypescript, SiTailwindcss, SiPostgresql,
-  SiFastify, SiSocketdotio, SiRedis, SiFramer,
-  SiNextdotjs, SiSupabase, SiVercel, SiPython,
-  SiDocker, SiTensorflow, SiKeras, SiObsidian,
-  SiMeta, SiOpenai, SiRender, SiJavascript,
-  SiHtml5, SiCss3
-} from "react-icons/si";
-
-// Import images at the top
+import React, { useState, useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 import echoVoyageImage from "@/assets/EchoVoyage.webp";
-import photoSphereImage from "@/assets/PhotoSphere.webp";
+import playerNationImage from "@/assets/PlayerNation.webp";
 import orderExecutionImage from "@/assets/OrderExecution.webp";
-import meetingCopilotImage from "@/assets/MeetingCopilot.webp";
-import smartBookmarkImage from "@/assets/SmartBookmark.webp";
-import photoChatbotImage from "@/assets/PhotoChatbot.webp";
-import voyageMateImage from "@/assets/VoyageMate.webp";
+import photoSphereImage from "@/assets/PhotoSphere.webp";
 import airQualityImage from "@/assets/AirQuality.webp";
-import pygano from "@/assets/pygano.webp";
+import voyageMateImage from "@/assets/VoyageMate.webp";
+import photoChatbotImage from "@/assets/PhotoChatbot.webp";
+import smartBookmarkImage from "@/assets/SmartBookmark.webp";
+import meetingCopilotImage from "@/assets/MeetingCopilot.webp";
+import pyganoImage from "@/assets/pygano.webp";
 
-const techIconMap: { [key: string]: { icon: any; color: string } } = {
-  "React": { icon: SiReact, color: "#61DAFB" },
-  "Redux": { icon: SiRedux, color: "#764ABC" },
-  "Node.js": { icon: SiNodedotjs, color: "#339933" },
-  "MongoDB": { icon: SiMongodb, color: "#47A248" },
-  "Typescript": { icon: SiTypescript, color: "#3178C6" },
-  "TypeScript": { icon: SiTypescript, color: "#3178C6" },
-  "Tailwind CSS": { icon: SiTailwindcss, color: "#06B6D4" },
-  "PostgreSQL": { icon: SiPostgresql, color: "#4169E1" },
-  "Fastify": { icon: SiFastify, color: "#FFDB00" },
-  "FastAPI": { icon: SiFastify, color: "#009688" },
-  "WebSockets": { icon: SiSocketdotio, color: "#47B2FF" },
-  "BullMQ": { icon: SiRedis, color: "#DC382D" },
-  "Redis": { icon: SiRedis, color: "#DC382D" },
-  "Framer Motion": { icon: SiFramer, color: "#0055FF" },
-  "Next.js": { icon: SiNextdotjs, color: "#FFFFFF" },
-  "Supabase": { icon: SiSupabase, color: "#3ECF8E" },
-  "Vercel": { icon: SiVercel, color: "#FFFFFF" },
-  "Python": { icon: SiPython, color: "#3776AB" },
-  "Docker": { icon: SiDocker, color: "#2496ED" },
-  "TensorFlow": { icon: SiTensorflow, color: "#FF6F00" },
-  "Keras": { icon: SiKeras, color: "#D00000" },
-  "Obsidian": { icon: SiObsidian, color: "#483699" },
-  "Groq API": { icon: SiOpenai, color: "#f55036" },
-  "Llama 3.3": { icon: SiMeta, color: "#0668E1" },
-  "LangGraph": { icon: SiPython, color: "#3776AB" },
-  "Onrender": { icon: SiRender, color: "#46E3B7" },
-  "JavaScript": { icon: SiJavascript, color: "#F7DF1E" },
-  "HTML/CSS": { icon: SiHtml5, color: "#E34F26" },
-  "Pillow (PIL)": { icon: ImageIcon, color: "#3776AB" },
-  "soundfile": { icon: Music, color: "#FF4081" },
-  "Web Audio API": { icon: AudioLines, color: "#00E676" },
+interface ProjectData {
+  title: string;
+  description: string;
+  tech: string[];
+  liveUrl: string;
+  githubUrl: string;
+  image: string;
+}
+
+const RAW_PROJECTS: ProjectData[] = [
+  {
+    title: "EchoVoyage",
+    description: "A travel website offering personalized trip planning and booking, with interactive maps, destination guides, and user reviews.",
+    tech: ["React", "Redux", "Node.js", "MongoDB"],
+    liveUrl: "https://echovoyages-v2.onrender.com",
+    githubUrl: "https://github.com/hemanth-chakravarthy/EchoVoyages",
+    image: echoVoyageImage,
+  },
+  {
+    title: "PlayerNation",
+    description:
+      "PlayerNation is an AI-powered football analytics app that transforms raw 2018 FIFA World Cup event data into AI-generated tactical match reports. It processes passes, shots, duels, fouls, player performances, and key match moments, then uses Gemini and Groq to generate fact-constrained tactical analysis with cached reports.",
+    tech: [
+      "React Native",
+      "Expo",
+      "Zustand",
+      "Fastify",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Gemini",
+      "Groq",
+    ],
+    liveUrl: "https://expo.dev/accounts/hemanthchakravarthy/projects/player-nation/builds/1378579e-bb30-4cad-a07a-199a8f5241db",
+    githubUrl: "https://github.com/hemanth-chakravarthy/player-nation",
+    image: playerNationImage,
+  },
+  {
+    title: "Order Execution Engine",
+    description: "A high-performance order execution engine for DEX trading with intelligent routing, real-time WebSocket updates, and concurrent order processing.",
+    tech: ["Node.js", "TypeScript", "Fastify", "WebSockets", "Redis"],
+    liveUrl: "https://order-execution-engine-production-2c02.up.railway.app/",
+    githubUrl: "https://github.com/hemanth-chakravarthy/Order-execution-engine",
+    image: orderExecutionImage,
+  },
+  {
+    title: "PhotoSphere",
+    description: "A personal photography portfolio platform where photographers showcase work through immersive, explorable photo spheres.",
+    tech: ["TypeScript", "React", "Tailwind CSS", "PostgreSQL"],
+    liveUrl: "https://photo-sphere-online.lovable.app/",
+    githubUrl: "https://github.com/hemanth-chakravarthy/photo-shpere",
+    image: photoSphereImage,
+  },
+  {
+    title: "Air Quality Monitor",
+    description: "A comprehensive web app for real-time air-quality monitoring and prediction, powered by Keras/TensorFlow models served through FastAPI.",
+    tech: ["React", "TypeScript", "FastAPI", "Python", "TensorFlow", "Docker"],
+    liveUrl: "",
+    githubUrl: "https://github.com/hemanth-chakravarthy/Air-Quality-Monitoring",
+    image: airQualityImage,
+  },
+  {
+    title: "VoyageMate AI",
+    description: "An agentic AI travel planner generating personalized itineraries and real-time insights via a ReAct-based LangGraph workflow.",
+    tech: ["LangGraph", "FastAPI", "Python", "React"],
+    liveUrl: "https://huggingface.co/spaces/imperialx04/VoyagemateAI",
+    githubUrl: "https://github.com/hemanth-chakravarthy/voyagemate-ai",
+    image: voyageMateImage,
+  },
+  {
+    title: "Photography Chatbot",
+    description: "An AI-powered personal photography advisor built with Next.js and the Groq API (Llama 3.3) for equipment and technique advice.",
+    tech: ["Next.js", "Tailwind CSS", "Groq API", "Llama 3.3"],
+    liveUrl: "https://photography-chatbot.vercel.app",
+    githubUrl: "https://github.com/hemanth-chakravarthy/photography-chatbot",
+    image: photoChatbotImage,
+  },
+  {
+    title: "Smart Bookmark App",
+    description: "A high-density digital knowledge archive built for speed, inspired by Obsidian's aesthetics and engineered for real-time sync.",
+    tech: ["Next.js", "Tailwind CSS", "Supabase", "Vercel"],
+    liveUrl: "https://smart-bookmark-app-pink-tau.vercel.app",
+    githubUrl: "https://github.com/hemanth-chakravarthy/smart-bookmark-app",
+    image: smartBookmarkImage,
+  },
+  {
+    title: "TwinMind — Meeting Copilot",
+    description: "A real-time AI meeting assistant performing live transcription, contextual reasoning, and intelligent augmentation with a secure BYOK architecture.",
+    tech: ["Next.js", "TypeScript", "Groq API", "Zustand"],
+    liveUrl: "https://live-ai-meeting-copilot.vercel.app",
+    githubUrl: "https://github.com/hemanth-chakravarthy/live-ai-meeting-copilot",
+    image: meetingCopilotImage,
+  },
+  {
+    title: "Pygano — Steganography Tool",
+    description: "A modular steganography suite hiding data inside images, audio, and text via LSB encoding, with a Python CLI and client-side web app.",
+    tech: ["Python", "JavaScript", "Pillow", "Web Audio API"],
+    liveUrl: "https://pygano-steganography-tool.vercel.app",
+    githubUrl: "https://github.com/hemanth-chakravarthy/pygano-steganography-tool",
+    image: pyganoImage,
+  },
+];
+
+const LAYERS = ["Interface", "Logic", "Data", "Intelligence", "Delivery"] as const;
+
+const TECH_META: Record<string, [string, string]> = {
+  "React": ["Interface", "component UI"],
+  "React Native": ["Interface", "mobile UI"],
+  "Next.js": ["Interface", "SSR + routing"],
+  "TypeScript": ["Interface", "typed contracts"],
+  "JavaScript": ["Interface", "client logic"],
+  "Tailwind CSS": ["Interface", "utility styling"],
+  "Redux": ["Interface", "global store"],
+  "Zustand": ["Interface", "lightweight state"],
+  "Node.js": ["Logic", "server runtime"],
+  "Fastify": ["Logic", "HTTP routing"],
+  "FastAPI": ["Logic", "async python api"],
+  "WebSockets": ["Logic", "live duplex feed"],
+  "Python": ["Logic", "services & scripts"],
+  "Web Audio API": ["Logic", "sample-level audio"],
+  "Pillow": ["Logic", "pixel manipulation"],
+  "MongoDB": ["Data", "document store"],
+  "PostgreSQL": ["Data", "relational store"],
+  "Redis": ["Data", "cache + queues"],
+  "Supabase": ["Data", "auth + realtime db"],
+  "Prisma": ["Data", "ORM layer"],
+  "TensorFlow": ["Intelligence", "forecast models"],
+  "LangGraph": ["Intelligence", "agent workflow"],
+  "Groq API": ["Intelligence", "llm inference"],
+  "Groq": ["Intelligence", "fast inference"],
+  "Gemini": ["Intelligence", "multimodal AI"],
+  "Llama 3.3": ["Intelligence", "reasoning model"],
+  "Expo": ["Delivery", "managed runtime"],
+  "Docker": ["Delivery", "containerized"],
+  "Vercel": ["Delivery", "edge hosting"],
 };
 
-const ProjectCard = ({ project, index }: { project: any; index: number }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
+const THEMES = {
+  dark: {
+    bg: "#0c0f14",
+    card: "#10141a",
+    secondary: "#181e26",
+    border: "rgba(255,255,255,0.08)",
+    fg: "hsl(0,0%,96%)",
+    muted: "hsl(220,10%,58%)",
+    primary: "#23dec8",
+  },
+  light: {
+    bg: "#ffffff",
+    card: "#ffffff",
+    secondary: "#f4f5f7",
+    border: "hsl(220,14%,90%)",
+    fg: "hsl(220,20%,12%)",
+    muted: "hsl(220,10%,46%)",
+    primary: "#1cb09f",
+  },
+};
+
+const Projects: React.FC = () => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [active, setActive] = useState(0);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted ? resolvedTheme === "dark" : true;
+  const t = isDark ? THEMES.dark : THEMES.light;
+
+  const startAuto = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setHovered((currentHovered) => {
+        if (currentHovered === null) {
+          setActive((prev) => (prev + 1) % RAW_PROJECTS.length);
+        }
+        return currentHovered;
+      });
+    }, 4500);
+  };
+
+  useEffect(() => {
+    startAuto();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  const activeIdx = hovered !== null ? hovered : active;
+  const raw = RAW_PROJECTS[activeIdx];
+
+  const activeLayers = LAYERS.map((layerName) => {
+    const items = raw.tech.filter((name) => (TECH_META[name] || ["Logic"])[0] === layerName);
+    if (!items.length) return null;
+    return {
+      name: layerName,
+      items: items.map((name) => ({
+        name,
+        role: (TECH_META[name] || ["", "supporting"])[1],
+      })),
+    };
+  }).filter(Boolean) as { name: string; items: { name: string; role: string }[] }[];
+
+  const techCountLabel = `${raw.tech.length} technologies · ${activeLayers.length} layers`;
+  const numLabel = String(activeIdx + 1).padStart(2, "0");
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative flex flex-col bg-card/40 backdrop-blur-md border border-border/50 rounded-3xl overflow-hidden hover:border-primary/50 transition-all duration-500 shadow-xl h-full dark:bg-secondary/30"
+    <section
+      id="projects"
+      style={{
+        backgroundColor: t.bg,
+        transition: "background 0.4s",
+        fontFamily: "'Outfit', sans-serif",
+      }}
     >
-      {/* Visual Area */}
-      <div className="relative h-64 overflow-hidden bg-muted flex items-center justify-center p-0 dark:bg-black/40">
-        {/* Project Image Background */}
-        <img
-          src={project.image}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-100 group-hover:opacity-10 group-hover:scale-110"
-        />
-
-        {/* Animated Background Glow */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-        {/* Center Line Glow (matching reference) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-32 bg-primary/40 blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-        {/* Tech Stack Scrolling Container */}
-        <div
-          className={`relative w-full overflow-hidden flex items-center justify-center py-4 mask-fade-edges transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-        >
-          <motion.div
-            className="flex gap-6 items-center"
-            animate={isHovered ? {
-              x: [0, -(project.tech.length * 88)],
-            } : { x: 0 }}
-            transition={{
-              duration: isHovered ? project.tech.length * 2 : 0.5,
-              repeat: isHovered ? Infinity : 0,
-              ease: "linear",
-            }}
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 py-16 md:py-20">
+        {/* Section Header */}
+        <div className="text-center mb-8 sm:mb-10">
+          <h2
+            className="section-heading text-center"
             style={{
-              display: "flex",
-              width: "max-content",
+              margin: 0,
+              color: t.fg,
             }}
           >
-            {/* Duplicate tech stack for seamless loop */}
-            {[...project.tech, ...project.tech, ...project.tech].map((techName: string, i: number) => {
-              const techData = techIconMap[techName] || { icon: SiReact, color: "#61DAFB" };
-              const Icon = techData.icon;
+            Featured Projects<span style={{ color: t.primary }}>.</span>
+          </h2>
+        </div>
+
+        {/* 2-Column Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] gap-10 lg:gap-12 items-start">
+          {/* Left Column: Project Navigation List */}
+          <div className="flex flex-col">
+            {RAW_PROJECTS.map((project, i) => {
+              const isActive = i === activeIdx;
               return (
                 <div
-                  key={i}
-                  className="flex flex-col items-center gap-2 group/icon"
+                  key={project.title}
+                  onMouseEnter={() => setHovered(i)}
+                  onMouseLeave={() => setHovered(null)}
+                  onClick={() => {
+                    setActive(i);
+                    setHovered(null);
+                    startAuto();
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    padding: "14px 10px",
+                    borderRadius: "10px",
+                    cursor: "pointer",
+                    background: isActive ? t.secondary : "transparent",
+                    transition: "background 0.25s",
+                  }}
                 >
-                  <div
-                    className="w-16 h-16 rounded-full bg-background/80 backdrop-blur-md flex items-center justify-center border border-border/50 shadow-sm group-hover/icon:scale-110 transition-all duration-300 dark:bg-secondary/80"
+                  <span
                     style={{
-                      borderColor: isHovered ? `${techData.color}44` : undefined,
-                      boxShadow: isHovered ? `0 0 20px ${techData.color}22` : undefined
+                      fontFamily: "'Space Grotesk', monospace",
+                      fontSize: "12px",
+                      color: isActive ? t.primary : t.muted,
+                      minWidth: "22px",
+                      transition: "color 0.25s",
                     }}
                   >
-                    <Icon
-                      className="w-8 h-8 transition-colors duration-300"
-                      style={{ color: techData.color }}
-                    />
-                  </div>
-                  <span className="text-[10px] font-medium text-muted-foreground opacity-0 group-hover/icon:opacity-100 transition-opacity">
-                    {techName}
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    style={{
+                      flex: 1,
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 600,
+                      fontSize: "15px",
+                      color: isActive ? t.fg : t.muted,
+                      transition: "color 0.25s",
+                    }}
+                  >
+                    {project.title}
+                  </span>
+                  <span
+                    style={{
+                      color: t.primary,
+                      opacity: isActive ? 1 : 0,
+                      transition: "opacity 0.25s",
+                      fontSize: "14px",
+                    }}
+                  >
+                    →
                   </span>
                 </div>
               );
             })}
-          </motion.div>
-        </div>
 
-        {/* Project Number */}
-        <div className="absolute top-6 left-6">
-          <span className="text-4xl font-display font-bold text-primary/10 select-none">
-            0{project.number}
-          </span>
-        </div>
-      </div>
+            {/* Progress Bar */}
+            <div
+              style={{
+                marginTop: "20px",
+                height: "2px",
+                borderRadius: "2px",
+                background: t.border,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  height: "100%",
+                  width: `${((activeIdx + 1) / RAW_PROJECTS.length) * 100}%`,
+                  background: t.primary,
+                  transition: "width 0.4s ease",
+                }}
+              />
+            </div>
 
-      {/* Content Area */}
-      <div className="flex-1 p-8 flex flex-col">
-        <h3 className="text-2xl font-display font-bold mb-3 group-hover:text-primary transition-colors duration-300">
-          {project.title}
-        </h3>
+            {/* Counter and Status */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "10px",
+                fontFamily: "'Space Grotesk', monospace",
+                fontSize: "11px",
+                letterSpacing: "0.1em",
+                color: t.muted,
+              }}
+            >
+              <span>
+                {numLabel} / {String(RAW_PROJECTS.length).padStart(2, "0")}
+              </span>
+              <span>AUTO-CYCLING</span>
+            </div>
+          </div>
 
-        <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-1">
-          {project.description}
-        </p>
-
-        {/* Footer Links */}
-        <div className="flex items-center gap-4 mt-auto">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 bg-foreground text-background rounded-full text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+          {/* Right Column: Preview Card */}
+          <div
+            key={raw.title}
+            style={{
+              background: t.card,
+              border: `1px solid ${t.border}`,
+              borderRadius: "20px",
+              padding: "20px",
+              animation: "proj-fade 0.4s ease",
+            }}
           >
-            <ExternalLink className="w-4 h-4" />
-            Live Demo
-          </a>
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2.5 rounded-full border border-border/50 text-muted-foreground hover:border-primary hover:text-primary transition-all duration-300"
-            title="GitHub Repository"
-          >
-            <Github className="w-5 h-5" />
-          </a>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+            {/* Visual Header Image with Big Number Watermark */}
+            <div
+              style={{
+                position: "relative",
+                height: "320px",
+                overflow: "hidden",
+                borderRadius: "16px",
+                background: t.secondary,
+              }}
+            >
+              <div
+                role="img"
+                aria-label={raw.title}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundImage: `url(${raw.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  top: "16px",
+                  left: "20px",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "56px",
+                  color: t.fg,
+                  opacity: 0.08,
+                  userSelect: "none",
+                  pointerEvents: "none",
+                }}
+              >
+                {numLabel}
+              </span>
+            </div>
 
-const Projects = () => {
-  const projects = [
-    {
-      number: "1",
-      title: "EchoVoyage",
-      description:
-        "EchoVoyage is a travel website that offers personalized trip planning and booking services. It features interactive maps, destination guides, and user reviews.",
-      tech: ["React", "Redux", "Node.js", "MongoDB"],
-      liveUrl: "https://echovoyages-v2.onrender.com",
-      githubUrl: "https://github.com/hemanth-chakravarthy/EchoVoyages",
-      image: echoVoyageImage,
-    },
-    {
-      number: "2",
-      title: "Order Execution Engine",
-      description:
-        "A high-performance order execution engine for DEX trading with intelligent routing, real-time WebSocket updates, and concurrent order processing.",
-      tech: ["Node.js", "TypeScript", "Fastify", "WebSockets", "Redis"],
-      liveUrl: "https://order-execution-engine-production-2c02.up.railway.app/",
-      githubUrl: "https://github.com/hemanth-chakravarthy/Order-execution-engine",
-      image: orderExecutionImage,
-    },
-    {
-      number: "3",
-      title: "PhotoSphere",
-      description:
-        "PhotoSphere is a personal photography portfolio platform that allows photographers to showcase their work. Users can explore immersive photo spheres.",
-      tech: ["Typescript", "React", "Tailwind CSS", "PostgreSQL"],
-      liveUrl: "https://photo-sphere-online.lovable.app/",
-      githubUrl: "https://github.com/hemanth-chakravarthy/photo-shpere",
-      image: photoSphereImage,
-    },
+            {/* Details Section */}
+            <div style={{ padding: "32px 4px 4px" }}>
+              <h3
+                style={{
+                  margin: "0 0 12px",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "clamp(22px, 3vw, 30px)",
+                  color: t.fg,
+                }}
+              >
+                {raw.title}
+              </h3>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: "'Outfit', sans-serif",
+                  fontSize: "15px",
+                  lineHeight: 1.6,
+                  color: t.muted,
+                  maxWidth: "560px",
+                }}
+              >
+                {raw.description}
+              </p>
 
-    {
-      number: "4",
-      title: "Air Quality Monitor",
-      description:
-        "Comprehensive web application for real-time air quality monitoring and prediction using machine learning (Keras/TensorFlow) and FastAPI.",
-      tech: ["React", "TypeScript", "FastAPI", "Python", "TensorFlow", "Docker", "Redis"],
-      githubUrl: "https://github.com/hemanth-chakravarthy/Air-Quality-Monitoring",
-      image: airQualityImage,
-    },
-    {
-      number: "5",
-      title: "VoyageMate AI",
-      description:
-        "Agentic AI travel planner that generates personalized itineraries and real-time insights using a ReAct-based LangGraph workflow and FastAPI.",
-      tech: ["LangGraph", "FastAPI", "Python", "React", "Onrender"],
-      liveUrl: "https://huggingface.co/spaces/imperialx04/VoyagemateAI",
-      githubUrl: "https://github.com/hemanth-chakravarthy/voyagemate-ai",
-      image: voyageMateImage,
-    },
-    {
-      number: "6",
-      title: "Photography Chatbot",
-      description:
-        "Your AI-powered personal photography advisor. Built with Next.js and the Groq API (Llama 3.3) for intelligent equipment and technique advice.",
-      tech: ["Next.js", "Tailwind CSS", "Groq API", "Llama 3.3"],
-      liveUrl: "https://photography-chatbot.vercel.app",
-      githubUrl: "https://github.com/hemanth-chakravarthy/photography-chatbot",
-      image: photoChatbotImage,
-    },
-    {
-      number: "7",
-      title: "Smart Bookmark App",
-      description:
-        "A high-density, professional-grade digital knowledge archive built for speed. Inspired by Obsidian aesthetics and engineered for real-time synchronization.",
-      tech: ["Obsidian", "Next.js", "Tailwind CSS", "Supabase", "Vercel"],
-      liveUrl: "https://smart-bookmark-app-pink-tau.vercel.app",
-      githubUrl: "https://github.com/hemanth-chakravarthy/smart-bookmark-app",
-      image: smartBookmarkImage,
-    },
-    {
-      number: "8",
-      title: "TwinMind — Live AI Meeting Copilot",
-      description:
-        "A high-performance real-time AI meeting assistant that performs live transcription, contextual reasoning, and intelligent meeting augmentation with secure BYOK architecture.",
-      tech: ["Next.js", "Tailwind CSS", "TypeScript", "Groq API", "Zustand", "Vercel"],
-      liveUrl: "https://live-ai-meeting-copilot.vercel.app",
-      githubUrl: "https://github.com/hemanth-chakravarthy/live-ai-meeting-copilot",
-      image: meetingCopilotImage,
-    },
-    {
-      number: "9",
-      title: "Pygano — Ensemble Steganography Tool",
-      description:
-        "A modular steganography suite for securely hiding data inside images, audio, and text using LSB encoding, featuring a Python CLI and a fully client-side web application.",
-      tech: ["Python", "JavaScript", "Pillow (PIL)", "soundfile", "Web Audio", "HTML/CSS", "Vercel",],
-      liveUrl: "https://pygano-steganography-tool.vercel.app",
-      githubUrl: "https://github.com/hemanth-chakravarthy/pygano-steganography-tool",
-      image: pygano,
-    }
-  ];
+              {/* Architecture Stack Breakdown */}
+              <div
+                style={{
+                  margin: "26px 0 28px",
+                  padding: "20px 20px 22px",
+                  borderRadius: "16px",
+                  background: t.secondary,
+                  border: `1px solid ${t.border}`,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                    marginBottom: "18px",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0 }}>
+                    <span
+                      style={{
+                        width: "18px",
+                        height: "2px",
+                        borderRadius: "2px",
+                        background: t.primary,
+                        flex: "none",
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        color: t.fg,
+                      }}
+                    >
+                      Architecture
+                    </span>
+                  </div>
+                  <span
+                    style={{
+                      fontFamily: "'Space Grotesk', monospace",
+                      fontSize: "10.5px",
+                      letterSpacing: "0.06em",
+                      color: t.muted,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {techCountLabel}
+                  </span>
+                </div>
 
-  return (
-    <section id="projects" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        <h2 className="section-heading mb-16 text-center">
-          Featured Projects<span className="text-primary">.</span>
-        </h2>
+                {/* Layers & Technology Chips */}
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  {activeLayers.map((layer, ci) => (
+                    <div
+                      key={layer.name}
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "minmax(96px, auto) minmax(0, 1fr)",
+                        gap: "18px",
+                        alignItems: "start",
+                        padding: "13px 0",
+                        borderTop: ci === 0 ? "none" : `1px solid ${t.border}`,
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "7px",
+                          paddingTop: "7px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            background: t.primary,
+                            flex: "none",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontFamily: "'Space Grotesk', sans-serif",
+                            fontSize: "9.5px",
+                            fontWeight: 700,
+                            letterSpacing: "0.13em",
+                            textTransform: "uppercase",
+                            color: t.fg,
+                            opacity: 0.72,
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {layer.name}
+                        </span>
+                      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", minWidth: 0 }}>
+                        {layer.items.map((tech) => (
+                          <div
+                            key={tech.name}
+                            className="transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "3px",
+                              padding: "10px 12px 11px",
+                              borderRadius: "11px",
+                              background: t.card,
+                              border: `1px solid ${t.border}`,
+                              minWidth: 0,
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontFamily: "'Space Grotesk', sans-serif",
+                                fontSize: "13px",
+                                fontWeight: 600,
+                                color: t.fg,
+                                lineHeight: 1.2,
+                                letterSpacing: "-0.005em",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {tech.name}
+                            </span>
+                            <span
+                              style={{
+                                fontFamily: "'Outfit', sans-serif",
+                                fontSize: "11px",
+                                fontWeight: 400,
+                                letterSpacing: "0.01em",
+                                color: t.muted,
+                                lineHeight: 1.3,
+                              }}
+                            >
+                              {tech.role}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                {raw.liveUrl ? (
+                  <a
+                    href={raw.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      padding: "11px 22px",
+                      borderRadius: "100px",
+                      background: t.fg,
+                      color: t.bg,
+                      fontFamily: "'Outfit', sans-serif",
+                      fontSize: "13.5px",
+                      fontWeight: 600,
+                      textDecoration: "none",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      transition: "opacity 0.2s",
+                    }}
+                    className="hover:opacity-90"
+                  >
+                    Live Demo ↗
+                  </a>
+                ) : null}
+                <a
+                  href={raw.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    padding: "11px 20px",
+                    borderRadius: "100px",
+                    border: `1px solid ${t.border}`,
+                    color: t.muted,
+                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: "13.5px",
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    transition: "color 0.2s, border-color 0.2s",
+                  }}
+                  className="hover:text-foreground hover:border-foreground"
+                >
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

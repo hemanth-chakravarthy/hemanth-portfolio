@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -122,29 +122,8 @@
 }
 
 @layer components {
-  .nav-link {
-    @apply relative text-muted-foreground transition-colors hover:text-foreground;
-  }
-
-  .nav-link::after {
-    @apply absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-300 content-[''];
-  }
-
-  .nav-link:hover::after {
-    @apply w-full;
-  }
-
-  .floating-icon {
-    @apply absolute transition-transform duration-500 hover:scale-110;
-    animation: float 3s ease-in-out infinite;
-  }
-
   .tech-badge {
     @apply inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground transition-all duration-300 hover:bg-primary hover:text-primary-foreground;
-  }
-
-  .project-card {
-    @apply relative overflow-hidden rounded-2xl bg-card shadow-card transition-all duration-500 hover:shadow-card-hover hover:-translate-y-2;
   }
 
   .social-link {
@@ -163,14 +142,6 @@
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-all duration-300 hover:bg-primary hover:text-primary-foreground;
   }
-
-  .glass-card {
-    @apply bg-secondary/30 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
-  }
-
-  .mask-fade-edges {
-    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  }
 }
 
 @layer utilities {
@@ -183,19 +154,10 @@
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes fade-up {
+@keyframes letter-in {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -203,25 +165,14 @@
   }
 }
 
-@keyframes fade-in {
+@keyframes proj-fade {
   from {
     opacity: 0;
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.animate-fade-up {
-  animation: fade-up 0.8s ease-out forwards;
-}
-
-.animate-fade-in {
-  animation: fade-in 0.6s ease-out forwards;
-}
-
-.animation-delay-100 { animation-delay: 100ms; }
-.animation-delay-200 { animation-delay: 200ms; }
-.animation-delay-300 { animation-delay: 300ms; }
-.animation-delay-400 { animation-delay: 400ms; }
-.animation-delay-500 { animation-delay: 500ms; }

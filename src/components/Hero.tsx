@@ -176,6 +176,7 @@ const Hero = () => {
           variants={itemVariants}
         >
           <p>
+            <span className="line-through mr-1 opacity-60">AI Engineer</span>
             <span className="line-through mr-1 opacity-60">Full-Stack</span>
             <span className="line-through mr-1 opacity-60">Software</span>
             <span className="line-through mr-1 opacity-60">Backend</span>

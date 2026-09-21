@@ -3,6 +3,12 @@ import { Briefcase, Calendar } from "lucide-react";
 const Experience = () => {
   const experiences = [
     {
+    title: "AI Engineer Intern - Document Intelligence",
+    company: "Smart Data Solutions",
+    period: "Jun 2026 - Present",
+    description: "Built AI-powered document intelligence pipelines for healthcare surveys forms using Vision Language Models, LLMs, OCR and prompt engineering. Benchmarked models including Qwen and developed evaluation pipelines for large-scale document extraction.",
+  },
+    {
       title: "Full Stack Developer",
       company: "neuxaglobal",
       period: "May 2025 - Oct 2025",
@@ -19,7 +25,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-24">
       <div className="container mx-auto px-6 max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-16">
+        <h2 className="section-heading text-center mb-16">
           Experience<span className="text-primary">.</span>
         </h2>
 

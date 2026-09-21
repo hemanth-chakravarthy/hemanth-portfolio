@@ -1,4 +1,4 @@
-import { Trophy, Award, Star, Medal } from "lucide-react";
+import { Trophy, Award, Star } from "lucide-react";
 
 const Achievements = () => {
   const achievements = [
@@ -25,7 +25,7 @@ const Achievements = () => {
   return (
     <section id="achievements" className="py-24 bg-muted/30">
       <div className="container mx-auto px-6 max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-display font-bold text-center mb-16">
+        <h2 className="section-heading text-center mb-16">
           Achievements<span className="text-primary">.</span>
         </h2>
 

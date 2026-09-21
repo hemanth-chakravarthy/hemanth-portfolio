@@ -67,7 +67,7 @@ const Messages = () => {
           variant: "destructive",
         });
       }
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Could not connect to server. Showing local messages.",
