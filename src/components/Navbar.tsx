@@ -17,7 +17,7 @@ const sections = [
 
 // 🔗 Google Drive direct download link
 const CV_DOWNLOAD_URL =
-  "https://drive.google.com/uc?export=download&id=1FQGn15VsUWybG0PMHaadzVcaGtMplRsy";
+  "https://drive.google.com/file/d/1q-V5QsVTO7KklM7Buteak7cwyc_740YT/view?usp=sharing";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
