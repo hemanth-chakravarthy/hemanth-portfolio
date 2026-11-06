@@ -6,7 +6,7 @@ const Experience = () => {
     title: "AI Engineer Intern - Document Intelligence",
     company: "Smart Data Solutions",
     period: "Jun 2026 - Present",
-    description: "Built AI-powered document intelligence pipelines for healthcare surveys forms using Vision Language Models, LLMs, OCR and prompt engineering. Benchmarked models including Qwen and developed evaluation pipelines for large-scale document extraction.",
+    description: "Built automated document intelligence pipelines for healthcare survey forms using Vision Language Models, LLMs, OCR, and prompt engineering. Benchmarked models including Qwen and developed evaluation pipelines for large-scale document extraction.",
   },
     {
       title: "Full Stack Developer",

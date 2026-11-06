@@ -14,7 +14,7 @@ const THEMES = {
     secondary: "#181e26",
     border: "rgba(255,255,255,0.1)",
     fg: "hsl(0,0%,96%)",
-    muted: "hsl(220,10%,58%)",
+    muted: "hsl(220,10%,72%)",
     primary: "#23dec8",
     primaryFg: "#0c0f14",
     label: "Light",
@@ -25,8 +25,8 @@ const THEMES = {
     secondary: "#f4f5f7",
     border: "hsl(220,14%,88%)",
     fg: "hsl(220,20%,12%)",
-    muted: "hsl(220,10%,46%)",
-    primary: "#1cb09f",
+    muted: "hsl(220,12%,38%)",
+    primary: "#158f80",
     primaryFg: "#ffffff",
     label: "Dark",
   },
@@ -126,7 +126,7 @@ const Contact: React.FC = () => {
       style={{
         background: t.bg,
         transition: "background 0.4s",
-        fontFamily: "'Outfit', sans-serif",
+        fontFamily: "'Poppins', sans-serif",
       }}
       className="py-16 md:py-20"
     >
@@ -148,7 +148,7 @@ const Contact: React.FC = () => {
           className="text-center max-w-lg mx-auto"
           style={{
             margin: "0 auto 16px",
-            fontFamily: "'Outfit', sans-serif",
+            fontFamily: "'Poppins', sans-serif",
             fontSize: "15px",
             color: t.muted,
           }}
@@ -254,7 +254,7 @@ const Contact: React.FC = () => {
                 <div style={{ fontSize: "16px", color: t.primary }}>✉</div>
                 <span
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "'Poppins', sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     color: t.muted,
@@ -333,10 +333,9 @@ const Contact: React.FC = () => {
                 </button>
                 <div
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: "'Poppins', sans-serif",
                     fontWeight: 700,
                     fontSize: "14px",
-                    letterSpacing: "0.2em",
                     color: t.primary,
                     border: `2px solid ${t.primary}`,
                     borderRadius: "8px",
@@ -345,11 +344,11 @@ const Contact: React.FC = () => {
                     marginBottom: "20px",
                   }}
                 >
-                  SENT
+                  Sent
                 </div>
                 <p
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Poppins', sans-serif",
                     fontSize: "15px",
                     color: t.muted,
                     maxWidth: "320px",
@@ -366,7 +365,7 @@ const Contact: React.FC = () => {
                     border: `1px solid ${t.border}`,
                     background: "transparent",
                     color: t.muted,
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Poppins', sans-serif",
                     fontSize: "13px",
                     cursor: "pointer",
                   }}
@@ -443,7 +442,7 @@ const Contact: React.FC = () => {
                 >
                   <span
                     style={{
-                      fontFamily: "'Outfit', sans-serif",
+                      fontFamily: "'Poppins', sans-serif",
                       fontSize: "14px",
                       color: t.muted,
                       whiteSpace: "nowrap",
@@ -483,7 +482,7 @@ const Contact: React.FC = () => {
                 >
                   <span
                     style={{
-                      fontFamily: "'Outfit', sans-serif",
+                      fontFamily: "'Poppins', sans-serif",
                       fontSize: "14px",
                       color: t.muted,
                       whiteSpace: "nowrap",
@@ -514,7 +513,7 @@ const Contact: React.FC = () => {
 
                 <p
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Poppins', sans-serif",
                     fontSize: "14px",
                     color: t.muted,
                     margin: "18px 0 8px",
@@ -571,7 +570,7 @@ const Contact: React.FC = () => {
                       border: "none",
                       background: t.fg,
                       color: t.bg,
-                      fontFamily: "'Outfit', sans-serif",
+                      fontFamily: "'Poppins', sans-serif",
                       fontSize: "13.5px",
                       fontWeight: 600,
                       cursor: isSubmitting ? "not-allowed" : "pointer",
@@ -592,16 +591,15 @@ const Contact: React.FC = () => {
           style={{
             textAlign: "center",
             margin: "20px 0 0",
-            fontFamily: "'Space Grotesk', monospace",
-            fontSize: "11px",
-            letterSpacing: "0.15em",
+            fontFamily: "'Poppins', sans-serif",
+            fontSize: "12px",
             color: t.muted,
             opacity: stage === "closed" ? 1 : 0,
             transition: "opacity 0.3s",
             pointerEvents: "none",
           }}
         >
-          CLICK TO OPEN
+          Click to open
         </p>
       </div>
     </section>

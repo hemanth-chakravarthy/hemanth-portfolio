@@ -16,8 +16,8 @@ const Achievements = () => {
     },
     {
       icon: Star,
-      title: "Open Source Contributor",
-      description: "Contributor to 'Developer Portfolios', a curated collection of high-quality portfolios for developer inspiration.",
+      title: "Curated Portfolio Showcase",
+      description: "Featured in and contributed to 'Developer Portfolios', a curated repository of engineering portfolios.",
       year: "2026",
     },
   ];

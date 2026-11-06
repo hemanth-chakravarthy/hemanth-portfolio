@@ -32,7 +32,7 @@ const RAW_PROJECTS: ProjectData[] = [
   {
     title: "PlayerNation",
     description:
-      "PlayerNation is an AI-powered football analytics app that transforms raw 2018 FIFA World Cup event data into AI-generated tactical match reports. It processes passes, shots, duels, fouls, player performances, and key match moments, then uses Gemini and Groq to generate fact-constrained tactical analysis with cached reports.",
+      "PlayerNation is a football analytics app that transforms raw 2018 FIFA World Cup event data into tactical match reports. It processes passes, shots, duels, fouls, player performances, and key match moments, then uses Gemini and Groq to generate fact-constrained tactical analysis with cached reports.",
     tech: [
       "React Native",
       "Expo",
@@ -74,7 +74,7 @@ const RAW_PROJECTS: ProjectData[] = [
   },
   {
     title: "VoyageMate AI",
-    description: "An agentic AI travel planner generating personalized itineraries and real-time insights via a ReAct-based LangGraph workflow.",
+    description: "An agentic travel planner generating personalized itineraries and real-time insights via a ReAct-based LangGraph workflow.",
     tech: ["LangGraph", "FastAPI", "Python", "React"],
     liveUrl: "https://huggingface.co/spaces/imperialx04/VoyagemateAI",
     githubUrl: "https://github.com/hemanth-chakravarthy/voyagemate-ai",
@@ -82,7 +82,7 @@ const RAW_PROJECTS: ProjectData[] = [
   },
   {
     title: "Photography Chatbot",
-    description: "An AI-powered personal photography advisor built with Next.js and the Groq API (Llama 3.3) for equipment and technique advice.",
+    description: "A personal photography advisor built with Next.js and the Groq API (Llama 3.3) for equipment and technique advice.",
     tech: ["Next.js", "Tailwind CSS", "Groq API", "Llama 3.3"],
     liveUrl: "https://photography-chatbot.vercel.app",
     githubUrl: "https://github.com/hemanth-chakravarthy/photography-chatbot",
@@ -98,7 +98,7 @@ const RAW_PROJECTS: ProjectData[] = [
   },
   {
     title: "TwinMind — Meeting Copilot",
-    description: "A real-time AI meeting assistant performing live transcription, contextual reasoning, and intelligent augmentation with a secure BYOK architecture.",
+    description: "A real-time meeting assistant performing live transcription, contextual reasoning, and intelligent augmentation with a secure BYOK architecture.",
     tech: ["Next.js", "TypeScript", "Groq API", "Zustand"],
     liveUrl: "https://live-ai-meeting-copilot.vercel.app",
     githubUrl: "https://github.com/hemanth-chakravarthy/live-ai-meeting-copilot",
@@ -155,7 +155,7 @@ const THEMES = {
     secondary: "#181e26",
     border: "rgba(255,255,255,0.08)",
     fg: "hsl(0,0%,96%)",
-    muted: "hsl(220,10%,58%)",
+    muted: "hsl(220,10%,72%)",
     primary: "#23dec8",
   },
   light: {
@@ -164,8 +164,8 @@ const THEMES = {
     secondary: "#f4f5f7",
     border: "hsl(220,14%,90%)",
     fg: "hsl(220,20%,12%)",
-    muted: "hsl(220,10%,46%)",
-    primary: "#1cb09f",
+    muted: "hsl(220,12%,38%)",
+    primary: "#158f80",
   },
 };
 
@@ -226,7 +226,7 @@ const Projects: React.FC = () => {
       style={{
         backgroundColor: t.bg,
         transition: "background 0.4s",
-        fontFamily: "'Outfit', sans-serif",
+        fontFamily: "'Poppins', sans-serif",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6 sm:px-8 py-16 md:py-20">
@@ -272,8 +272,9 @@ const Projects: React.FC = () => {
                 >
                   <span
                     style={{
-                      fontFamily: "'Space Grotesk', monospace",
+                      fontFamily: "'Poppins', sans-serif",
                       fontSize: "12px",
+                      fontWeight: 600,
                       color: isActive ? t.primary : t.muted,
                       minWidth: "22px",
                       transition: "color 0.25s",
@@ -284,7 +285,7 @@ const Projects: React.FC = () => {
                   <span
                     style={{
                       flex: 1,
-                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontFamily: "'Poppins', sans-serif",
                       fontWeight: 600,
                       fontSize: "15px",
                       color: isActive ? t.fg : t.muted,
@@ -333,16 +334,15 @@ const Projects: React.FC = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 marginTop: "10px",
-                fontFamily: "'Space Grotesk', monospace",
-                fontSize: "11px",
-                letterSpacing: "0.1em",
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: "12px",
                 color: t.muted,
               }}
             >
               <span>
                 {numLabel} / {String(RAW_PROJECTS.length).padStart(2, "0")}
               </span>
-              <span>AUTO-CYCLING</span>
+              <span>Auto-cycling</span>
             </div>
           </div>
 
@@ -367,15 +367,15 @@ const Projects: React.FC = () => {
                 background: t.secondary,
               }}
             >
-              <div
-                role="img"
-                aria-label={raw.title}
+              <img
+                src={raw.image}
+                alt={raw.title}
                 style={{
                   width: "100%",
                   height: "100%",
-                  backgroundImage: `url(${raw.image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  display: "block",
                 }}
               />
               <span
@@ -383,7 +383,7 @@ const Projects: React.FC = () => {
                   position: "absolute",
                   top: "16px",
                   left: "20px",
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Poppins', sans-serif",
                   fontWeight: 700,
                   fontSize: "56px",
                   color: t.fg,
@@ -401,7 +401,7 @@ const Projects: React.FC = () => {
               <h3
                 style={{
                   margin: "0 0 12px",
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "'Poppins', sans-serif",
                   fontWeight: 700,
                   fontSize: "clamp(22px, 3vw, 30px)",
                   color: t.fg,
@@ -412,7 +412,7 @@ const Projects: React.FC = () => {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Outfit', sans-serif",
+                  fontFamily: "'Poppins', sans-serif",
                   fontSize: "15px",
                   lineHeight: 1.6,
                   color: t.muted,
@@ -453,11 +453,9 @@ const Projects: React.FC = () => {
                     />
                     <span
                       style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: "11px",
+                        fontFamily: "'Poppins', sans-serif",
+                        fontSize: "13px",
                         fontWeight: 700,
-                        letterSpacing: "0.16em",
-                        textTransform: "uppercase",
                         color: t.fg,
                       }}
                     >
@@ -466,9 +464,8 @@ const Projects: React.FC = () => {
                   </div>
                   <span
                     style={{
-                      fontFamily: "'Space Grotesk', monospace",
-                      fontSize: "10.5px",
-                      letterSpacing: "0.06em",
+                      fontFamily: "'Poppins', sans-serif",
+                      fontSize: "12px",
                       color: t.muted,
                       whiteSpace: "nowrap",
                     }}
@@ -510,13 +507,11 @@ const Projects: React.FC = () => {
                         />
                         <span
                           style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
-                            fontSize: "9.5px",
-                            fontWeight: 700,
-                            letterSpacing: "0.13em",
-                            textTransform: "uppercase",
+                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: "12px",
+                            fontWeight: 600,
                             color: t.fg,
-                            opacity: 0.72,
+                            opacity: 0.85,
                             whiteSpace: "nowrap",
                           }}
                         >
@@ -542,12 +537,11 @@ const Projects: React.FC = () => {
                           >
                             <span
                               style={{
-                                fontFamily: "'Space Grotesk', sans-serif",
+                                fontFamily: "'Poppins', sans-serif",
                                 fontSize: "13px",
                                 fontWeight: 600,
                                 color: t.fg,
                                 lineHeight: 1.2,
-                                letterSpacing: "-0.005em",
                                 whiteSpace: "nowrap",
                               }}
                             >
@@ -555,10 +549,9 @@ const Projects: React.FC = () => {
                             </span>
                             <span
                               style={{
-                                fontFamily: "'Outfit', sans-serif",
-                                fontSize: "11px",
+                                fontFamily: "'Poppins', sans-serif",
+                                fontSize: "11.5px",
                                 fontWeight: 400,
-                                letterSpacing: "0.01em",
                                 color: t.muted,
                                 lineHeight: 1.3,
                               }}
@@ -585,7 +578,7 @@ const Projects: React.FC = () => {
                       borderRadius: "100px",
                       background: t.fg,
                       color: t.bg,
-                      fontFamily: "'Outfit', sans-serif",
+                      fontFamily: "'Poppins', sans-serif",
                       fontSize: "13.5px",
                       fontWeight: 600,
                       textDecoration: "none",
@@ -608,7 +601,7 @@ const Projects: React.FC = () => {
                     borderRadius: "100px",
                     border: `1px solid ${t.border}`,
                     color: t.muted,
-                    fontFamily: "'Outfit', sans-serif",
+                    fontFamily: "'Poppins', sans-serif",
                     fontSize: "13.5px",
                     fontWeight: 500,
                     textDecoration: "none",

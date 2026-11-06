@@ -1,5 +1,6 @@
 import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import ThemeToggle from "./ThemeToggle";
 
 // Import images at the top
@@ -22,35 +23,14 @@ const CV_DOWNLOAD_URL =
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("Home");
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // Check theme on mount and when it changes
   useEffect(() => {
-    const checkTheme = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setIsDarkMode(isDark);
-    };
-
-    // Initial check
-    checkTheme();
-
-    // Create a MutationObserver to watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          checkTheme();
-        }
-      });
-    });
-
-    // Start observing the html element for class changes
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
+    setMounted(true);
   }, []);
+
+  const isDarkMode = mounted ? resolvedTheme === "dark" : true;
 
   useEffect(() => {
     let rafId: number;
@@ -92,8 +72,8 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50 transition-shadow ${
-        scrolled ? "shadow-lg shadow-foreground/5" : ""
+      className={`fixed top-0 left-0 right-0 z-50 bg-background border-b border-border transition-shadow ${
+        scrolled ? "shadow-sm" : ""
       }`}
     >
       <nav className="relative max-w-6xl mx-auto px-6 py-4 flex items-center">
@@ -141,11 +121,10 @@ const Navbar = () => {
             href={CV_DOWNLOAD_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary gap-2 group relative overflow-hidden"
+            className="btn-primary gap-2"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-            <Download className="w-4 h-4 relative z-10" />
-            <span className="relative z-10">Download CV</span>
+            <Download className="w-4 h-4" />
+            <span>Download CV</span>
           </a>
         </div>
       </nav>

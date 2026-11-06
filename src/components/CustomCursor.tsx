@@ -82,7 +82,7 @@ const CustomCursor = () => {
           opacity: cursorOpacity,
         }}
       >
-        <span className="text-primary font-mono text-sm font-bold select-none">
+        <span className="text-primary font-display text-sm font-bold select-none">
           {"</>"}
         </span>
       </motion.div>

@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Instagram } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 // Import images at the top
 import logoWhite from "@/assets/hcklogowhite.webp";
@@ -7,35 +8,15 @@ import logoBlack from "@/assets/hcklogoblack.webp";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // Check theme on mount and when it changes
   useEffect(() => {
-    const checkTheme = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setIsDarkMode(isDark);
-    };
-
-    // Initial check
-    checkTheme();
-
-    // Create a MutationObserver to watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          checkTheme();
-        }
-      });
-    });
-
-    // Start observing the html element for class changes
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
+    setMounted(true);
   }, []);
+
+  const isDarkMode = mounted ? resolvedTheme === "dark" : true;
+  const logo = isDarkMode ? logoWhite : logoBlack;
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/hemanth-chakravarthy", label: "GitHub" },
@@ -43,9 +24,6 @@ const Footer = () => {
     { icon: Mail, href: "mailto:khchakri@gmail.com", label: "Email" },
     { icon: Instagram, href: "https://instagram.com/imperialx.04", label: "Instagram" },
   ];
-
-  // Determine which logo to use based on theme
-  const logo = isDarkMode ? logoWhite : logoBlack;
 
   return (
     <footer className="py-8 border-t border-border relative">

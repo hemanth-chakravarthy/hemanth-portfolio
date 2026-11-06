@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail, Instagram } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 import PacManText from "./PacManText";
 
 // Import images directly
@@ -70,36 +71,14 @@ const floatingIcons = [
 const Hero = () => {
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  // Check theme on mount and when it changes
   useEffect(() => {
-    const checkTheme = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setIsDarkMode(isDark);
-    };
-
-    // Initial check
-    checkTheme();
-
-    // Create a MutationObserver to watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          checkTheme();
-        }
-      });
-    });
-
-    // Start observing the html element for class changes
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
+    setMounted(true);
   }, []);
+
+  const isDarkMode = mounted ? resolvedTheme === "dark" : true;
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -190,10 +169,15 @@ const Hero = () => {
         </motion.div>
 
         {/* Portrait Container */}
-        <div className="relative mx-auto flex items-center justify-center">
+        <motion.div 
+          className="relative mx-auto flex items-center justify-center"
+          variants={itemVariants}
+        >
           <motion.div 
             className="relative w-64 h-auto md:w-80 md:h-auto mx-auto"           
             variants={imageVariants}
+            initial="hidden"
+            animate="visible"
           >
             <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent rounded-full blur-xl scale-110" />
             <img
@@ -224,7 +208,7 @@ const Hero = () => {
               );
             })}
           </motion.div>
-        </div>
+        </motion.div>
         
         {/* Photography Button - Scaled down */}
         <a
@@ -233,7 +217,7 @@ const Hero = () => {
           rel="noopener noreferrer"
           className="absolute left-4 bottom-36 z-50 md:left-10 group"
         >
-          <button className="px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm border border-foreground/10 dark:bg-black/30 bg-white/30 shadow-md transition-all duration-300 hover:scale-105 hover:bg-primary hover:border-primary hover:shadow-lg hover:shadow-primary/20 dark:hover:text-white hover:text-black">
+          <button className="px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-card shadow-sm transition-all duration-300 hover:scale-105 hover:bg-primary hover:border-primary hover:text-primary-foreground">
             Photography <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>
           </button>
         </a>

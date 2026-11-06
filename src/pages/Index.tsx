@@ -8,7 +8,6 @@ import Achievements from "../components/Achievements";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import CustomCursor from "../components/CustomCursor";
-import ScrollSection from "../components/ScrollSection";
 
 const Index = () => {
   return (
@@ -22,34 +21,33 @@ const Index = () => {
       </Helmet>
 
       <CustomCursor />
-      
 
       <div className="min-h-screen relative">
         <Navbar />
         <main>
-          <ScrollSection id="home">
+          <div id="home">
             <Hero />
-          </ScrollSection>
+          </div>
 
-          <ScrollSection id="about">
+          <div id="about">
             <About />
-          </ScrollSection>
+          </div>
 
-          <ScrollSection id="experience">
+          <div id="experience">
             <Experience />
-          </ScrollSection>
+          </div>
 
-          <ScrollSection id="projects">
+          <div id="projects">
             <Projects />
-          </ScrollSection>
+          </div>
 
-          <ScrollSection id="achievements">
+          <div id="achievements">
             <Achievements />
-          </ScrollSection>
+          </div>
 
-          <ScrollSection id="contact">
+          <div id="contact">
             <Contact />
-          </ScrollSection>
+          </div>
         </main>
         <Footer />
       </div>

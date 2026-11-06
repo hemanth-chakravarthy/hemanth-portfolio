@@ -1,15 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    font-family: 'Outfit', 'Space Grotesk', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 }
-
 
 @layer base {
   :root {
@@ -22,16 +19,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 10%;
 
-    --primary: 174 72% 40%;
+    --primary: 174 72% 34%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 20% 10%;
 
     --muted: 220 14% 96%;
-    --muted-foreground: 220 10% 50%;
+    --muted-foreground: 220 12% 38%;
 
-    --accent: 174 72% 40%;
+    --accent: 174 72% 34%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -39,12 +36,12 @@
 
     --border: 220 14% 90%;
     --input: 220 14% 90%;
-    --ring: 174 72% 40%;
+    --ring: 174 72% 34%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(174 72% 40%) 0%, hsl(190 80% 50%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(174 72% 34%) 0%, hsl(190 80% 42%) 100%);
     --shadow-card: 0 4px 20px -4px hsl(220 20% 10% / 0.08);
     --shadow-card-hover: 0 12px 40px -8px hsl(220 20% 10% / 0.15);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,7 +73,7 @@
     --secondary-foreground: 0 0% 98%;
 
     --muted: 220 20% 15%;
-    --muted-foreground: 220 10% 60%;
+    --muted-foreground: 220 10% 72%;
 
     --accent: 174 72% 50%;
     --accent-foreground: 220 20% 6%;
@@ -110,12 +107,12 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Poppins', sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   /* Smooth theme transitions — only on interactive elements, NOT wildcard */
@@ -175,4 +172,3 @@
     transform: translateY(0);
   }
 }
-

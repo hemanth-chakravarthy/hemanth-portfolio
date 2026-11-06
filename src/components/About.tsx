@@ -46,14 +46,14 @@ const techStack = [
   { name: "Gemini", icon: "https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@master/packages/static-svg/icons/gemini-color.svg" },
   { name: "Groq", icon: "https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@master/packages/static-svg/icons/groq.svg" },
   { name: "OpenAI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openapi/openapi-original.svg" },
-  { name: "Claude", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/anthropic/anthropic-original.svg" },
+  { name: "Claude", icon: "https://cdn.jsdelivr.net/gh/lobehub/lobe-icons@master/packages/static-svg/icons/claude-color.svg" },
   { name: "LSTM", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "XGBoost", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "LightGBM", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "Random Forest", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
 
   // Cloud / DevOps
-  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
   { name: "Docker Compose", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
   { name: "GitHub Actions", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" },
@@ -86,14 +86,14 @@ const techStack = [
       I’m <strong className="text-foreground">Hemanth Chakravarthy Kancharla</strong>, a{" "}
       <strong className="text-foreground">2026 Computer Science graduate</strong> and AI Engineer Intern
       with a strong interest in building <strong className="text-foreground">scalable, intelligent, and user-focused applications</strong>.
-      I enjoy working across the stack — from designing clean interfaces and reliable APIs to building
-      AI-powered systems that solve real-world problems.
+      I enjoy working across the stack — from designing clean interfaces and reliable APIs to engineering
+      intelligent systems that solve real-world problems.
     </p>
 
     <p className="text-lg text-muted-foreground leading-relaxed mb-6">
       My work spans <strong className="text-foreground">full-stack development, backend engineering, and applied AI</strong>,
       with hands-on experience in React, TypeScript, Node.js, Fastify, PostgreSQL, MongoDB, and modern
-      AI/LLM tooling. I’ve built everything from full-stack platforms and backend systems to AI-powered
+      LLM tooling. I’ve built everything from full-stack platforms and backend services to automated
       document intelligence and football analytics applications. I care about clean architecture,
       performance, and creating experiences that feel simple despite the complexity underneath.
     </p>
